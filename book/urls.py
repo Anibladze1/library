@@ -13,7 +13,5 @@ urlpatterns = [
 
     path('create-condition/', views.ConditionCreateView.as_view(), name='create-condition'),
 
-    path('request-book/<int:pk>/', views.RequestBookView.as_view(), name='request-book'),
-    path('return-book/<int:pk>/', views.ReturnBookView.as_view(), name='return-book'),
     path("available-books/", views.AvailableBooksListView.as_view(), name='available-books')
 ]

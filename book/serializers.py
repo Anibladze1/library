@@ -4,7 +4,7 @@ from .models import Book, Author, Genre, Condition
 
 class BookSerializer(serializers.ModelSerializer):
     owner = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
-    recipient = serializers.PrimaryKeyRelatedField(read_only=True)
+    # recipient = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = Book
