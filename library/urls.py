@@ -16,30 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import TemplateView
-from rest_framework.permissions import AllowAny
-from drf_yasg.views import get_schema_view
-from drf_yasg import openapi
-
-schema_view = get_schema_view(
-   openapi.Info(
-      title="API Schema",
-      default_version='v1',
-      description="Guide for the REST API",
-   ),
-   public=True,
-   permission_classes=(AllowAny,),
-   authentication_classes=(),
-)
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('api/users/', include('users.urls')),
-    path('api/', include('api.urls')),
+    path('', include('users.urls')),
+    path('', include('api.urls')),
 
-    path('api_schema/', schema_view.as_view(), name='api_schema'),
-    path('docs/', TemplateView.as_view(
-        template_name='docs.html',
-        extra_context={'schema_url': 'api_schema'}
-        ), name='swagger-ui'),
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('swagger/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
+
 ]

@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'users',
     'api',
-    'drf_yasg',
+    'drf_spectacular',
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -50,7 +50,16 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+
 }
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Book Management System',
+    'VERSION': '0.1',
+    'DESCRIPTION': 'Book Management System API, for renting Books',
+}
+
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
