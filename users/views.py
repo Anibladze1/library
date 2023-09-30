@@ -8,6 +8,20 @@ from users.serializers import UserSerializer
 
 
 class RegisterAPIView(APIView):
+    """
+    API endpoint that allows new users to register.
+
+    **Parameters**:
+
+    - `email`: Email of the user.
+    - `password`: Password for the new user.
+    - `location`: Location for the new user.
+
+    **Returns**:
+    :return
+    - `201 Created`: If registration is successful.
+    - `400 Bad Request`: If the provided data is invalid.
+    """
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
@@ -17,11 +31,26 @@ class RegisterAPIView(APIView):
 
 
 class LoginAPIView(APIView):
+    """
+    API endpoint for user login.
+
+    Authenticates the user using email and password and returns an access token.
+
+    **Parameters**:
+
+    - `email`: Email of the user.
+    - `password`: Password of the user.
+
+    **Returns**:
+    :return
+    - `200 OK`: If login is successful along with an access and refresh token.
+    - `400 Bad Request`: If credentials are invalid.
+    """
     def post(self, request):
-        username = request.data.get("username")
+        email = request.data.get("email")
         password = request.data.get("password")
 
-        user = authenticate(username=username, password=password)
+        user = authenticate(email=email, password=password)
 
         if user:
             login(request, user)
@@ -35,6 +64,16 @@ class LoginAPIView(APIView):
 
 
 class LogoutAPIView(APIView):
+    """
+    API endpoint for user logout.
+
+    Ends the user's current session.
+
+    **Returns**:
+    :return
+    - `200 OK`: If logout is successful.
+    """
+
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request):
@@ -43,6 +82,21 @@ class LogoutAPIView(APIView):
 
 
 class DeleteUserAPIView(APIView):
+    """
+    API endpoint to delete a user.
+
+    Allows a user to delete their own account or lets a superuser delete any user account.
+
+    **Parameters**:
+
+    - `user_id`: ID of the user to be deleted.
+
+    **Returns**:
+    :return
+    - `200 OK`: If user deletion is successful.
+    - `404 Not Found`: If the user with the given ID does not exist.
+    - `403 Forbidden`: If the logged-in user is neither the user to be deleted nor a superuser.
+    """
     permission_classes = [permissions.IsAuthenticated]
 
     def delete(self, request, user_id=None):

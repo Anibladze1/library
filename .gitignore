@@ -1,0 +1,23 @@
+# Compiled Python files
+*.pyc
+*.pyo
+__pycache__/
+
+# Python cache directories
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+media/
+# IDE files
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Miscellaneous
+.DS_Store
+
+.env
