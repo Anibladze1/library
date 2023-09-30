@@ -34,3 +34,8 @@ pip install -r requirements.txt
 ```sh
 python manage.py runserver
 ```
+
+### Run Unit Tests
+```sh
+python manage.py test users.tests
+```
