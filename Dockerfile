@@ -1,29 +1,16 @@
-# Use an official Python runtime as a parent image
-FROM python:3.9-slim-buster
+FROM python:3.10
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-
-# Set working directory
+# Set the working directory
 WORKDIR /app
 
-# Install system dependencies
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends libpq-dev gcc \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install Python dependencies
+# Copy the requirements file and install dependencies
 COPY requirements.txt /app/
-RUN pip install --upgrade pip \
-    && pip install -r requirements.txt
+RUN pip install -r requirements.txt --no-cache
 
-# Copy the current directory contents into the container at /app/
-COPY . /app/
 
-# Make sure the entrypoint script is executable
-RUN chmod +x /app/scripts/docker-entrypoint.sh
+# Copy the rest of your application code
+COPY . /app
 
-# Set the entrypoint script
-ENTRYPOINT ["/app/scripts/docker-entrypoint.sh"]
+
+# Set the entrypoint for the container
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
