@@ -7,7 +7,7 @@ The Book Giveaway Service is a platform where users can generously offer books t
 To run locally, you need to create a virtual environment and install all the requirements.
 
 ### Steps
-- Clone The Repo From Github
+- Clone The Repo From GitHub
 ```sh
 git clone https://github.com/Anibladze1/library
 ```
