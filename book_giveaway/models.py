@@ -4,7 +4,7 @@ from book.models import Book
 from library import settings
 
 
-class BookBorrowRequest(models.Model):
+class AskForBookRequest(models.Model):
 	requester = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="requester")
 	book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='book')
 	request_date = models.DateTimeField(auto_now_add=True, blank=True)

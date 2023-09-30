@@ -1,20 +1,20 @@
 from rest_framework import serializers
 
-from book_giveaway.models import BookBorrowRequest
+from book_giveaway.models import AskForBookRequest
 
 
-class BookBorrowRequestSerializer(serializers.ModelSerializer):
+class AskForBookRequestSerializer(serializers.ModelSerializer):
 	owner = serializers.SerializerMethodField()
 	location = serializers.SerializerMethodField()
 	requester = serializers.HiddenField(default=serializers.CurrentUserDefault())
 	
 	class Meta:
-		model = BookBorrowRequest
+		model = AskForBookRequest
 		fields = ["book", "owner", "location", "requester"]
 		
 		validators = [
 			serializers.UniqueTogetherValidator(
-				queryset=BookBorrowRequest.objects.all(), fields=("book", "requester"), message="Request Already Exists."
+				queryset=AskForBookRequest.objects.all(), fields=("book", "requester"), message="Request Already Exists."
 			)
 		]
 		
@@ -27,5 +27,5 @@ class BookBorrowRequestSerializer(serializers.ModelSerializer):
 	
 class ListBookRequestSerializer(serializers.ModelSerializer):
 	class Meta:
-		model = BookBorrowRequest
+		model = AskForBookRequest
 		fields = "__all__"
