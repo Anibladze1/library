@@ -11,6 +11,7 @@ class Book(models.Model):
     condition = models.ForeignKey(Condition, on_delete=models.CASCADE)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='owned_books')
     is_available = models.BooleanField(default=True)
+    image = models.ImageField(upload_to="book_images/", null=True, blank=True)
 
     def book_location(self):
         return self.owner.location
@@ -18,9 +19,6 @@ class Book(models.Model):
     def save(self, *args, **kwargs):
         self.title = self.title.capitalize()
         super().save(*args, **kwargs)
-
-    # TODO: Add Image
-    # image = ""
 
     def __str__(self):
         return self.title

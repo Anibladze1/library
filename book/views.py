@@ -1,5 +1,5 @@
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny
 from rest_framework.filters import SearchFilter, OrderingFilter
 
 from .models import Book
@@ -46,3 +46,15 @@ class AvailableBooksListView(generics.ListAPIView):
     queryset = Book.objects.filter(is_available=True)
     serializer_class = BookSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+
+class BookDetailView(generics.RetrieveAPIView):
+    """
+    API endpoint to retrieve a book by its ID.
+
+    **Permissions**:
+    - Read: Everyone
+    """
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = [AllowAny]
