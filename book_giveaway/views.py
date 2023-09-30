@@ -7,6 +7,12 @@ from book_giveaway.serializers import AskForBookRequestSerializer, ListBookReque
 
 
 class RequestBookView(generics.CreateAPIView):
+    """
+    API endpoint to request a book.
+
+    **Permissions**:
+    - Only authenticated users can make a request.
+    """
     serializer_class = AskForBookRequestSerializer
     permission_classes = [IsAuthenticated]
 
@@ -19,6 +25,12 @@ class RequestBookView(generics.CreateAPIView):
 
 
 class GetBookRequestListView(generics.ListAPIView):
+    """
+    API endpoint to list all book requests made to the authenticated user (book owner).
+
+    **Permissions**:
+    - Only authenticated users can view the requests made to them.
+    """
     permission_classes = [IsAuthenticated]
     serializer_class = ListBookRequestSerializer
 
@@ -35,6 +47,15 @@ class GetBookRequestListView(generics.ListAPIView):
 
 
 class ConfirmBookRequestView(generics.UpdateAPIView):
+    """
+    API endpoint to confirm a book request.
+
+    **Permissions**:
+    - Only authenticated users can confirm a request.
+
+    **Conditions**:
+    - The user must be the owner of the book and the book must be available.
+    """
     queryset = AskForBookRequest.objects.all()
     serializer_class = AskForBookRequestSerializer
     permission_classes = [IsAuthenticated]

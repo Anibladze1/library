@@ -23,6 +23,8 @@ class AskForBookRequestSerializer(serializers.ModelSerializer):
 	
 	def get_owner(self, obj):
 		return obj.book.owner
+
+
 	
 	
 class ListBookRequestSerializer(serializers.ModelSerializer):
